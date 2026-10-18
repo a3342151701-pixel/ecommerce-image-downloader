@@ -1,0 +1,54 @@
+#ecom-img-root {
+  all: initial;
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 2147483646;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  pointer-events: none;
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+#ecom-img-root button {
+  all: unset;
+  pointer-events: auto;
+  box-sizing: border-box;
+  cursor: pointer;
+  min-width: 96px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: #0f6e6b;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-align: center;
+  box-shadow: 0 10px 24px rgba(15, 110, 107, 0.28);
+}
+
+#ecom-img-root button:hover {
+  background: #0c5b58;
+}
+
+#ecom-img-root button:disabled {
+  cursor: progress;
+  background: #5f8f8d;
+}
+
+#ecom-img-root .ecom-img-toast {
+  pointer-events: auto;
+  max-width: 240px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #8d2f2f;
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.4;
+  box-shadow: 0 8px 20px rgba(28, 27, 24, 0.12);
+}

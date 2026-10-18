@@ -1,0 +1,56 @@
+{
+  "manifest_version": 3,
+  "name": "电商图片提取",
+  "version": "1.0.0",
+  "description": "在淘宝、京东、拼多多商家版详情页提取商品图片，勾选后下载为 PNG。",
+  "permissions": ["storage", "downloads", "tabs"],
+  "host_permissions": [
+    "*://*.taobao.com/*",
+    "*://*.tmall.com/*",
+    "*://*.alicdn.com/*",
+    "*://*.jd.com/*",
+    "*://*.jd.hk/*",
+    "*://*.360buyimg.com/*",
+    "*://*.3.cn/*",
+    "*://mms.pinduoduo.com/*",
+    "*://*.pddpic.com/*",
+    "*://*.yangkeduo.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "电商图片提取",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.taobao.com/*",
+        "*://*.tmall.com/*",
+        "*://*.jd.com/*",
+        "*://*.jd.hk/*",
+        "*://mms.pinduoduo.com/*"
+      ],
+      "js": [
+        "lib/image-url.js",
+        "content/sites.js",
+        "content/extract.js",
+        "content/content.js"
+      ],
+      "css": ["content/content.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}
