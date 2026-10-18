@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+  <title>Celadon vase</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e4ece6"/>
+      <stop offset="1" stop-color="#f8faf7"/>
+    </linearGradient>
+    <linearGradient id="porcelain" x1="0" y1="0" x2="1" y2="0.7">
+      <stop offset="0" stop-color="#fbf9f1"/>
+      <stop offset="0.55" stop-color="#eeeadd"/>
+      <stop offset="1" stop-color="#d8d8c7"/>
+    </linearGradient>
+    <linearGradient id="glaze" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4f8578"/>
+      <stop offset="1" stop-color="#1d4b43"/>
+    </linearGradient>
+    <linearGradient id="stem" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2e3a30"/>
+      <stop offset="1" stop-color="#141d19"/>
+    </linearGradient>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+  </defs>
+  <rect width="640" height="640" fill="url(#bg)"/>
+  <ellipse cx="320" cy="548" rx="126" ry="17" fill="#0d1c19" opacity="0.15" filter="url(#blur)"/>
+  <path d="M266 470 C238 420 248 366 276 336 C292 318 294 292 288 262 L352 262 C346 292 348 318 364 336 C392 366 402 420 374 470 Z" fill="url(#porcelain)"/>
+  <path d="M270 432 C296 448 344 448 370 432 L374 468 C344 484 296 486 266 468 Z" fill="url(#glaze)" opacity="0.9"/>
+  <path d="M282 458 C304 468 336 468 358 456" fill="none" stroke="#7fa99a" stroke-width="2" opacity="0.6"/>
+  <rect x="286" y="246" width="68" height="18" rx="8" fill="#e4ddca"/>
+  <ellipse cx="320" cy="247" rx="34" ry="7" fill="#c9c2ae"/>
+  <path d="M320 246 C316 208 332 184 352 158 C340 196 334 218 334 246" fill="none" stroke="url(#stem)" stroke-width="3"/>
+  <path d="M328 202 C300 188 284 198 276 214 C294 218 314 214 328 202 Z" fill="#6f9079"/>
+  <path d="M334 180 C354 160 376 162 384 174 C368 186 348 190 334 180 Z" fill="#517466"/>
+  <path d="M326 222 C306 218 294 226 290 238 C304 240 316 234 326 222 Z" fill="#8aa896"/>
+  <path d="M300 350 C296 372 298 400 306 420" fill="none" stroke="#ffffff" stroke-width="6" opacity="0.28" stroke-linecap="round"/>
+</svg>

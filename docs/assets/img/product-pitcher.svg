@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+  <title>Ceramic pitcher</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e8eee8"/>
+      <stop offset="1" stop-color="#f8faf7"/>
+    </linearGradient>
+    <linearGradient id="clay" x1="0" y1="0" x2="1" y2="0.8">
+      <stop offset="0" stop-color="#f7f2e4"/>
+      <stop offset="0.55" stop-color="#e9e2d0"/>
+      <stop offset="1" stop-color="#cfc9b6"/>
+    </linearGradient>
+    <linearGradient id="glaze" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#578b7d"/>
+      <stop offset="1" stop-color="#24534a"/>
+    </linearGradient>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+  </defs>
+  <rect width="640" height="640" fill="url(#bg)"/>
+  <ellipse cx="316" cy="540" rx="142" ry="18" fill="#0d1c19" opacity="0.15" filter="url(#blur)"/>
+  <path d="M260 300 C250 356 244 410 256 470 C262 500 284 514 320 514 C356 514 378 500 384 470 C396 410 390 356 380 300 Z" fill="url(#clay)"/>
+  <path d="M256 438 C288 452 352 452 384 438 L384 468 C372 500 350 512 320 512 C290 512 268 500 256 468 Z" fill="url(#glaze)"/>
+  <path d="M258 300 H382 L374 330 H266 Z" fill="#e6dfcc"/>
+  <ellipse cx="320" cy="300" rx="62" ry="13" fill="#d3ccb8"/>
+  <path d="M378 336 C436 340 452 384 430 418 C418 436 400 444 386 442" fill="none" stroke="#dcd4c0" stroke-width="20" stroke-linecap="round"/>
+  <path d="M378 336 C424 340 436 376 418 404" fill="none" stroke="#b9b3a0" stroke-width="2" opacity="0.6"/>
+  <path d="M268 322 C264 370 266 414 274 448" fill="none" stroke="#ffffff" stroke-width="8" opacity="0.3" stroke-linecap="round"/>
+  <path d="M284 470 C302 478 338 478 356 468" fill="none" stroke="#7fa99a" stroke-width="2" opacity="0.55"/>
+</svg>

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+  <title>Arc floor lamp</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e3ebe5"/>
+      <stop offset="1" stop-color="#f8faf7"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.44" r="0.5">
+      <stop offset="0" stop-color="#fff5d8" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#fff5d8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#1b312d"/>
+      <stop offset="1" stop-color="#0b1a17"/>
+    </linearGradient>
+    <linearGradient id="shade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fbf7ea"/>
+      <stop offset="1" stop-color="#dccdab"/>
+    </linearGradient>
+    <linearGradient id="brass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d9b571"/>
+      <stop offset="1" stop-color="#a97c36"/>
+    </linearGradient>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="13"/>
+    </filter>
+  </defs>
+  <rect width="640" height="640" fill="url(#bg)"/>
+  <circle cx="322" cy="300" r="218" fill="url(#glow)"/>
+  <ellipse cx="326" cy="552" rx="126" ry="18" fill="#0d1c19" opacity="0.16" filter="url(#blur)"/>
+  <path d="M448 272 L520 520 L332 520 Z" fill="#f6e6b6" opacity="0.17"/>
+  <ellipse cx="322" cy="538" rx="78" ry="11" fill="#16211f"/>
+  <ellipse cx="322" cy="534" rx="68" ry="8" fill="url(#brass)"/>
+  <path d="M322 530 V298 C322 208 370 168 444 160" fill="none" stroke="url(#metal)" stroke-width="10" stroke-linecap="round"/>
+  <path d="M444 160 H470" fill="none" stroke="url(#brass)" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="322" cy="298" r="7" fill="url(#brass)"/>
+  <path d="M404 186 H500 L520 268 H384 Z" fill="url(#shade)"/>
+  <ellipse cx="452" cy="268" rx="68" ry="13" fill="#f3e3ba"/>
+  <path d="M432 268 H472" stroke="#c7a15a" stroke-width="2" opacity="0.55"/>
+  <path d="M452 186 V268" stroke="#c9b488" stroke-width="1" opacity="0.45"/>
+</svg>

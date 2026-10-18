@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+  <title>Canvas lounge chair</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e7ede7"/>
+      <stop offset="1" stop-color="#f7f9f5"/>
+    </linearGradient>
+    <linearGradient id="linen" x1="0" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#f3eddb"/>
+      <stop offset="1" stop-color="#d3d4c1"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#1c332e"/>
+      <stop offset="1" stop-color="#0c1a17"/>
+    </linearGradient>
+    <linearGradient id="brass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d9b571"/>
+      <stop offset="1" stop-color="#a97c36"/>
+    </linearGradient>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="13"/>
+    </filter>
+  </defs>
+  <rect width="640" height="640" fill="url(#bg)"/>
+  <ellipse cx="320" cy="548" rx="162" ry="20" fill="#0d1c19" opacity="0.15" filter="url(#blur)"/>
+
+  <path d="M220 436 L198 538" fill="none" stroke="url(#metal)" stroke-width="11" stroke-linecap="round"/>
+  <path d="M420 436 L444 538" fill="none" stroke="url(#metal)" stroke-width="11" stroke-linecap="round"/>
+  <path d="M268 444 L254 534" fill="none" stroke="url(#metal)" stroke-width="8" stroke-linecap="round" opacity="0.55"/>
+  <path d="M376 444 L392 534" fill="none" stroke="url(#metal)" stroke-width="8" stroke-linecap="round" opacity="0.55"/>
+  <path d="M198 538 H222" fill="none" stroke="url(#brass)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M420 538 H446" fill="none" stroke="url(#brass)" stroke-width="8" stroke-linecap="round"/>
+
+  <path d="M194 428 V308 C194 212 250 178 320 178 C390 178 446 212 446 308 V428" fill="none" stroke="url(#metal)" stroke-width="12" stroke-linecap="round"/>
+  <path d="M212 420 V312 C212 228 260 198 320 198 C380 198 428 228 428 312 V420 Z" fill="url(#linen)"/>
+  <path d="M228 322 H412" fill="none" stroke="#b7b9a6" stroke-width="1.5" opacity="0.8"/>
+  <path d="M234 340 H406" fill="none" stroke="#b7b9a6" stroke-width="1.5" opacity="0.45" stroke-dasharray="3 7"/>
+
+  <rect x="172" y="354" width="296" height="86" rx="30" fill="url(#linen)"/>
+  <path d="M194 398 H446" fill="none" stroke="#b7b9a6" stroke-width="1.5" opacity="0.55"/>
+  <path d="M186 384 H154" fill="none" stroke="url(#metal)" stroke-width="10" stroke-linecap="round"/>
+  <path d="M454 384 H486" fill="none" stroke="url(#metal)" stroke-width="10" stroke-linecap="round"/>
+  <path d="M166 384 V436" fill="none" stroke="url(#metal)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M474 384 V436" fill="none" stroke="url(#metal)" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="166" cy="382" r="6" fill="url(#brass)"/>
+  <circle cx="474" cy="382" r="6" fill="url(#brass)"/>
+  <path d="M220 420 H420" fill="none" stroke="#b7b9a6" stroke-width="1.5" opacity="0.5"/>
+</svg>

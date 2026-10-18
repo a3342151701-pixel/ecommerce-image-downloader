@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>电商图片提取 — 一键提取商品图，勾选下载 PNG</title>
+  <meta name="description" content="Chrome 扩展「电商图片提取」：在淘宝、京东、拼多多商家版的商品详情页提取商品图，于新页面勾选后下载为 PNG。">
+  <meta name="theme-color" content="#edf1ee">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/noto-serif-sc.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/noto-sans-sc.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    document.documentElement.classList.add("js");
+    window.setTimeout(function () {
+      if (!document.documentElement.dataset.ready) {
+        document.documentElement.classList.remove("js");
+      }
+    }, 2500);
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+
+  <header class="site-header">
+    <div class="site-header__inner container">
+      <a class="brand" href="#top" aria-label="电商图片提取，返回顶部">
+        <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M9 13V9h4M19 9h4v4M23 19v4h-4M13 23H9v-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/>
+          <path d="M16 11v10m0 0 3.2-3.2M16 21l-3.2-3.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/>
+        </svg>
+        <span class="brand__name">电商图片提取</span>
+      </a>
+
+      <nav class="site-nav" aria-label="主导航">
+        <a href="#about">产品介绍</a>
+        <a href="#features">核心功能</a>
+        <a href="#install">安装步骤</a>
+        <a href="#platforms">支持平台</a>
+        <a href="#faq">常见问题</a>
+      </nav>
+
+      <a class="header-cta" href="#install">安装扩展</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero__intro reveal">
+        <p class="eyebrow">Chrome 扩展 · Manifest V3</p>
+        <h1 id="hero-title">一键提取商品图，<br><span class="hero__accent">勾选下载 PNG</span>。</h1>
+        <p class="hero__lead">在淘宝、京东、拼多多商家版的商品详情页，点右下角「获取图片」。新页面集中预览，勾选后按原图导出 PNG。</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#install">
+            查看安装步骤
+            <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M3 9h11m0 0-4-4m4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+          </a>
+          <a class="btn btn--ghost" href="#features">了解核心功能</a>
+        </div>
+        <p class="hero__meta"><span>本地处理</span><span>无需登录</span><span>不上传图片</span></p>
+      </div>
+
+      <figure class="hero__visual">
+        <div class="stage" data-stage aria-hidden="true">
+          <p class="stage__meta stage__meta--left">DETAIL <span>→</span> SELECT <span>→</span> PNG</p>
+          <p class="stage__meta stage__meta--right">ECOMMERCE IMAGE EXTRACTOR / 01</p>
+
+          <div class="mock mock--detail" data-layer="back">
+            <div class="mock__chrome">
+              <span class="mock__dots"><i></i><i></i><i></i></span>
+              <span class="mock__url">detail.tmall.com/item.htm?id=…</span>
+              <span class="mock__badge">商品详情</span>
+            </div>
+            <div class="mock__detail-body">
+              <div class="mock__media">
+                <div class="mock__main"><img src="assets/img/product-lamp.svg" alt=""></div>
+                <div class="mock__thumbs">
+                  <span><img src="assets/img/product-lamp.svg" alt=""></span>
+                  <span><img src="assets/img/product-chair.svg" alt=""></span>
+                  <span><img src="assets/img/product-vase.svg" alt=""></span>
+                  <span><img src="assets/img/product-kettle.svg" alt=""></span>
+                </div>
+              </div>
+              <div class="mock__info">
+                <p class="mock__store">木上生活 · 官方旗舰店</p>
+                <p class="mock__title">弧光落地灯</p>
+                <p class="mock__sub">黄铜关节 · 亚麻灯罩 · 哑光黑</p>
+                <p class="mock__price"><small>¥</small> 1,280</p>
+                <div class="mock__rows">
+                  <span>颜色 <b>哑光黑</b></span>
+                  <span>光源 <b>暖白 3000K</b></span>
+                  <span>配送 <b>包邮</b></span>
+                </div>
+                <div class="mock__buttons">
+                  <span class="mock__btn">加入购物车</span>
+                  <span class="mock__btn mock__btn--buy">立即购买</span>
+                </div>
+              </div>
+            </div>
+            <div class="mock__fab">
+              <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M4 6V4h2M12 4h2v2M14 12v2h-2M6 14H4v-2M9 6.5v5m0 0 2-2m-2 2-2-2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg>
+              获取图片
+            </div>
+          </div>
+
+          <div class="mock mock--gallery" data-layer="front">
+            <div class="mock__gallery-head">
+              <div>
+                <p class="mock__eyebrow">淘宝 · 商品图片</p>
+                <p class="mock__gallery-title">弧光落地灯</p>
+              </div>
+              <p class="mock__count">已选 <b>4</b> / 12</p>
+            </div>
+            <div class="mock__grid">
+              <figure class="mock__tile is-checked"><img src="assets/img/product-lamp.svg" alt=""><i></i></figure>
+              <figure class="mock__tile is-checked"><img src="assets/img/product-chair.svg" alt=""><i></i></figure>
+              <figure class="mock__tile is-checked"><img src="assets/img/product-vase.svg" alt=""><i></i></figure>
+              <figure class="mock__tile"><img src="assets/img/product-kettle.svg" alt=""><i></i></figure>
+              <figure class="mock__tile is-checked"><img src="assets/img/product-speaker.svg" alt=""><i></i></figure>
+              <figure class="mock__tile"><img src="assets/img/product-pitcher.svg" alt=""><i></i></figure>
+            </div>
+            <div class="mock__gallery-foot">
+              <span>全选 · 取消全选</span>
+              <span class="mock__download">下载所选（4）</span>
+            </div>
+          </div>
+        </div>
+        <figcaption class="stage-caption">
+          <span>示意：商品详情页 → 图片选择页 → 本地 PNG</span>
+          <span>淘宝 / 京东 / 拼多多商家版</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-label"><span>01</span> 产品介绍</p>
+          <div>
+            <h2 id="about-title">图片散落在详情页，取图应该是件利落的事。</h2>
+            <p class="section-note">「电商图片提取」是一个 Chrome 扩展。它把当前商品详情页上的主图、轮播图与详情图收集到同一个页面，让你挑需要的，存成本地 PNG。</p>
+          </div>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-copy reveal">
+            <p class="about-lead">不登录卖家账号，不打开设计软件，也不逐张右键另存。</p>
+            <p>打开受支持的商品详情页，右下角会多出一个「获取图片」按钮。点击后，扩展读取页面上公开的图片地址，去掉重复项与缩略图后缀，在新标签页里集中展示。</p>
+            <p>勾选、预览、下载都在本机完成。它不读取账号、Cookie 或订单，也不把图片上传到任何服务器。</p>
+            <p class="about-foot">适用人群：电商运营、设计、内容与素材归档人员。</p>
+          </div>
+
+          <ol class="scenarios">
+            <li class="reveal">
+              <span>01</span>
+              <div>
+                <h3>上新与改版</h3>
+                <p>从自家或竞品详情页取回主图与详情图，整理成下一版上架素材。</p>
+              </div>
+            </li>
+            <li class="reveal">
+              <span>02</span>
+              <div>
+                <h3>设计对接</h3>
+                <p>把选好的商品图交给设计或运营，不再让对方逐张保存、反复确认。</p>
+              </div>
+            </li>
+            <li class="reveal">
+              <span>03</span>
+              <div>
+                <h3>素材归档</h3>
+                <p>按商品批量收图，统一为 PNG 存入下载目录的 ecom-images 文件夹。</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features" aria-labelledby="features-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-label"><span>02</span> 核心功能</p>
+          <div>
+            <h2 id="features-title">四个动作，一条完整的取图路径。</h2>
+            <p class="section-note">从详情页入口到本地文件，每一步都只为取图服务。点击下面的步骤，看看具体发生了什么。</p>
+          </div>
+        </div>
+
+        <div class="feature-demo reveal" data-demo>
+          <div class="demo-tabs" role="tablist" aria-label="核心功能演示">
+            <button class="demo-tab is-active" type="button" role="tab" id="demo-tab-1" aria-controls="demo-panel-1" aria-selected="true">
+              <span>01</span> 提取
+            </button>
+            <button class="demo-tab" type="button" role="tab" id="demo-tab-2" aria-controls="demo-panel-2" aria-selected="false" tabindex="-1">
+              <span>02</span> 勾选
+            </button>
+            <button class="demo-tab" type="button" role="tab" id="demo-tab-3" aria-controls="demo-panel-3" aria-selected="false" tabindex="-1">
+              <span>03</span> 导出
+            </button>
+            <button class="demo-tab" type="button" role="tab" id="demo-tab-4" aria-controls="demo-panel-4" aria-selected="false" tabindex="-1">
+              <span>04</span> 多平台
+            </button>
+          </div>
+
+          <div class="demo-stage">
+            <div class="demo-copy">
+              <div class="demo-panel is-active" role="tabpanel" id="demo-panel-1" aria-labelledby="demo-tab-1" tabindex="0">
+                <h3>详情页右下角，点一下「获取图片」</h3>
+                <p>扩展只在受支持的商品详情页出现入口。点击后读取主图、轮播与描述中的图片地址，去掉重复项，并把常见的缩略图后缀还原为更大的版本。</p>
+                <ul>
+                  <li>只在商品详情页注入按钮</li>
+                  <li>单页跳转后自动重新判断</li>
+                  <li>图标、logo 与过小的装饰图会被过滤</li>
+                </ul>
+              </div>
+
+              <div class="demo-panel" role="tabpanel" id="demo-panel-2" aria-labelledby="demo-tab-2" tabindex="0" hidden>
+                <h3>新页面集中预览，逐张勾选</h3>
+                <p>提取结果在新标签页打开，缩略图平铺展示。默认全选，你可以取消不需要的，也可以点开图片放大确认，顶部会实时显示已选数量。</p>
+                <ul>
+                  <li>支持全选与取消全选</li>
+                  <li>单击缩略图查看大图</li>
+                  <li>勾选数量随操作即时更新</li>
+                </ul>
+              </div>
+
+              <div class="demo-panel" role="tabpanel" id="demo-panel-3" aria-labelledby="demo-tab-3" tabindex="0" hidden>
+                <h3>只下载勾选项，统一转成 PNG</h3>
+                <p>点击「下载所选」后，扩展先检查本地已有的 product 编号，再从数字最小的空号开始命名。图片在浏览器内用 Canvas 转为 PNG，逐张保存；某一张失败，不会影响其余图片。</p>
+                <ul>
+                  <li>保存到下载目录的 ecom-images 文件夹</li>
+                  <li>已有 01、02、04 时，本批从 03 开始，遇到占用就跳过</li>
+                  <li>本地删除图片后，对应编号重新可用</li>
+                  <li>结束后显示成功与失败数量</li>
+                </ul>
+              </div>
+
+              <div class="demo-panel" role="tabpanel" id="demo-panel-4" aria-labelledby="demo-tab-4" tabindex="0" hidden>
+                <h3>三个平台，同一条取图路径</h3>
+                <p>覆盖淘宝 / 天猫、京东、拼多多商家版的商品详情页。页面条件不满足时，按钮不会出现，也不影响浏览器正常使用。</p>
+                <ul>
+                  <li>淘宝 / 天猫：商品详情地址包含商品 id</li>
+                  <li>京东：item.jd.com 的数字商品页</li>
+                  <li>拼多多商家版：mms.pinduoduo.com 的 goods 页面</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="demo-visual" aria-hidden="true">
+              <div class="demo-view is-active" data-view="1">
+                <div class="mini-browser">
+                  <div class="mini-chrome"><span class="mini-dots"><i></i><i></i><i></i></span><em>detail.tmall.com</em></div>
+                  <div class="mini-detail">
+                    <div class="mini-photo"><img src="assets/img/product-lamp.svg" alt=""></div>
+                    <div class="mini-info">
+                      <span class="mini-kicker">木上生活</span>
+                      <span class="mini-heading">弧光落地灯</span>
+                      <span class="mini-line mini-line--long"></span>
+                      <span class="mini-line"></span>
+                      <span class="mini-price">¥ 1,280</span>
+                    </div>
+                    <span class="mini-fab">获取图片</span>
+                  </div>
+                </div>
+                <p class="demo-caption">右下角入口只在商品详情页出现</p>
+              </div>
+
+              <div class="demo-view" data-view="2" hidden>
+                <div class="mini-window">
+                  <div class="mini-window__head">
+                    <div><span class="mini-kicker">淘宝 · 商品图片</span><strong>弧光落地灯</strong></div>
+                    <span class="mini-count">已选 <b>4</b> / 12</span>
+                  </div>
+                  <div class="mini-grid">
+                    <figure class="is-checked"><img src="assets/img/product-lamp.svg" alt=""><i></i></figure>
+                    <figure class="is-checked"><img src="assets/img/product-chair.svg" alt=""><i></i></figure>
+                    <figure class="is-checked"><img src="assets/img/product-vase.svg" alt=""><i></i></figure>
+                    <figure><img src="assets/img/product-kettle.svg" alt=""><i></i></figure>
+                    <figure class="is-checked"><img src="assets/img/product-speaker.svg" alt=""><i></i></figure>
+                    <figure><img src="assets/img/product-pitcher.svg" alt=""><i></i></figure>
+                  </div>
+                  <div class="mini-window__foot"><span>全选 · 取消全选</span><span class="mini-download">下载所选（4）</span></div>
+                </div>
+                <p class="demo-caption">默认全选，点选后可下载</p>
+              </div>
+
+              <div class="demo-view" data-view="3" hidden>
+                <div class="mini-window mini-window--files">
+                  <div class="mini-window__head">
+                    <div><span class="mini-kicker">下载所选</span><strong>已有 01、02、04，本批用 03、05</strong></div>
+                    <span class="mini-count">PNG</span>
+                  </div>
+                  <ul class="file-list">
+                    <li class="file-row"><span class="file-badge">PNG</span><span class="file-name">product-03.png</span><span class="file-state">已保存</span></li>
+                    <li class="file-row"><span class="file-badge">PNG</span><span class="file-name">product-05.png</span><span class="file-state">转换中</span></li>
+                    <li class="file-row is-skipped"><span class="file-badge">跳过</span><span class="file-name">01 / 02 / 04 已存在</span><span class="file-state">占用</span></li>
+                  </ul>
+                  <div class="mini-window__foot"><span>下载 / ecom-images</span><span class="mini-download">2 张 · 本地转换</span></div>
+                </div>
+                <p class="demo-caption">从最小空号开始，已占用的编号自动跳过</p>
+              </div>
+
+              <div class="demo-view" data-view="4" hidden>
+                <div class="mini-window mini-window--sites">
+                  <div class="mini-window__head">
+                    <div><span class="mini-kicker">适用页面</span><strong>三个平台</strong></div>
+                    <span class="mini-count">已覆盖</span>
+                  </div>
+                  <ul class="site-rows">
+                    <li><span class="site-mark">淘</span><div><strong>淘宝 / 天猫</strong><em>item.taobao.com · detail.tmall.com</em></div><span class="site-check">✓</span></li>
+                    <li><span class="site-mark">京</span><div><strong>京东</strong><em>item.jd.com</em></div><span class="site-check">✓</span></li>
+                    <li><span class="site-mark">拼</span><div><strong>拼多多商家版</strong><em>mms.pinduoduo.com</em></div><span class="site-check">✓</span></li>
+                  </ul>
+                </div>
+                <p class="demo-caption">入口统一在详情页右下角</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="privacy-note reveal">扩展不读取账号、Cookie 或订单。图片转换与下载都在浏览器本地完成，不经过服务器。</p>
+      </div>
+    </section>
+
+    <section class="section" id="install" aria-labelledby="install-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-label"><span>03</span> 安装步骤</p>
+          <div>
+            <h2 id="install-title">在 Chrome 里，加载这个文件夹。</h2>
+            <p class="section-note">当前版本通过 Chrome 开发者模式安装，不需要应用商店账号。按下面的顺序操作，完成后打开商品详情页即可使用。</p>
+          </div>
+        </div>
+
+        <div class="install-grid">
+          <ol class="install-steps">
+            <li class="install-step reveal">
+              <span class="step-index">01</span>
+              <div>
+                <h3>打开扩展管理页</h3>
+                <p>在 Chrome 地址栏输入 <code>chrome://extensions</code> 并回车，进入「扩展程序」页面。</p>
+              </div>
+            </li>
+            <li class="install-step reveal">
+              <span class="step-index">02</span>
+              <div>
+                <h3>打开「开发者模式」</h3>
+                <p>在页面右上角把「开发者模式」开关打开。开启后，页面上才会出现加载本地扩展的操作按钮。</p>
+              </div>
+            </li>
+            <li class="install-step reveal">
+              <span class="step-index">03</span>
+              <div>
+                <h3>点击「加载已解压的扩展程序」</h3>
+                <p>按钮位于扩展程序页面顶部。点击后，Chrome 会要求你选择一个本地文件夹。</p>
+              </div>
+            </li>
+            <li class="install-step reveal">
+              <span class="step-index">04</span>
+              <div>
+                <h3>选择扩展目录</h3>
+                <p>选中 <code>ecommerce-image-downloader</code> 文件夹，也就是包含 <code>manifest.json</code> 的那一层，而不是它的上级目录。</p>
+              </div>
+            </li>
+            <li class="install-step reveal">
+              <span class="step-index">05</span>
+              <div>
+                <h3>打开商品详情页使用</h3>
+                <p>刷新已经打开的商品页。右下角出现「获取图片」后，点击它，在新页面勾选图片，再点「下载所选」。</p>
+              </div>
+            </li>
+          </ol>
+
+          <figure class="ext-preview reveal" aria-hidden="true">
+            <div class="ext-window">
+              <div class="ext-chrome">
+                <span class="mock__dots"><i></i><i></i><i></i></span>
+                <span class="ext-url">chrome://extensions<span class="pin pin--1">1</span></span>
+                <span class="ext-menu">⋮</span>
+              </div>
+
+              <div class="ext-page">
+                <div class="ext-top">
+                  <p class="ext-title">扩展程序</p>
+                  <div class="ext-dev">
+                    <span>开发者模式</span>
+                    <span class="ext-toggle is-on"><i></i></span>
+                    <span class="pin pin--2">2</span>
+                  </div>
+                </div>
+
+                <div class="ext-toolbar">
+                  <span class="ext-btn ext-btn--accent">加载已解压的扩展程序<span class="pin pin--3">3</span></span>
+                  <span class="ext-btn">打包扩展程序</span>
+                  <span class="ext-btn">更新</span>
+                </div>
+
+                <div class="ext-card">
+                  <div class="ext-card__head">
+                    <span class="ext-icon">
+                      <svg viewBox="0 0 32 32"><path d="M9 13V9h4M19 9h4v4M23 19v4h-4M13 23H9v-4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M16 11v10m0 0 3-3m-3 3-3-3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                    </span>
+                    <div class="ext-card__name">
+                      <strong>电商图片提取</strong>
+                      <span>1.0.0</span>
+                    </div>
+                    <span class="ext-toggle is-on"><i></i></span>
+                  </div>
+                  <p class="ext-desc">在淘宝、京东、拼多多商家版详情页提取商品图片，勾选后下载为 PNG。</p>
+                  <div class="ext-links"><span>详情</span><span>移除</span><span>错误</span></div>
+                </div>
+
+                <div class="ext-dialog">
+                  <p class="ext-dialog__title">选择扩展程序目录</p>
+                  <p class="ext-path">F:\docs\<b>ecommerce-image-downloader</b><span class="pin pin--4">4</span></p>
+                  <div class="ext-files"><span>manifest.json</span><span>background.js</span><span>content</span><span>gallery</span></div>
+                  <div class="ext-dialog__actions"><span>取消</span><span class="ext-btn ext-btn--accent">选择文件夹</span></div>
+                </div>
+              </div>
+            </div>
+            <figcaption>界面示意 · chrome://extensions</figcaption>
+          </figure>
+        </div>
+
+        <p class="install-note reveal">安装完成后，可以在 Chrome 工具栏的扩展菜单里固定图标。之后如果更新了扩展代码，回到 <code>chrome://extensions</code>，点击扩展卡片上的刷新按钮即可生效。</p>
+      </div>
+    </section>
+
+    <section class="section" id="platforms" aria-labelledby="platforms-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-label"><span>04</span> 支持平台</p>
+          <div>
+            <h2 id="platforms-title">三个平台，同一个入口。</h2>
+            <p class="section-note">按钮只会出现在符合条件的商品详情页。列表页、搜索页与店铺首页不会注入入口。</p>
+          </div>
+        </div>
+
+        <div class="platform-table">
+          <div class="platform-head" aria-hidden="true">
+            <span>平台</span>
+            <span>生效页面</span>
+            <span>入口位置</span>
+          </div>
+          <ul class="platform-list">
+            <li class="platform-row reveal">
+              <div class="platform-name">
+                <span class="monogram">淘</span>
+                <strong>淘宝 / 天猫</strong>
+              </div>
+              <div class="platform-desc">
+                <p>商品详情页，地址中包含商品 id。支持淘宝与天猫两个域名。</p>
+                <p><code>item.taobao.com/item.htm?id=…</code> <code>detail.tmall.com/item.htm?id=…</code></p>
+              </div>
+              <span class="platform-entry">右下角「获取图片」</span>
+            </li>
+            <li class="platform-row reveal">
+              <div class="platform-name">
+                <span class="monogram">京</span>
+                <strong>京东</strong>
+              </div>
+              <div class="platform-desc">
+                <p>商品详情页，路径为数字 <code>.html</code>，或包含 <code>/product/数字</code>。</p>
+                <p><code>item.jd.com/100012043978.html</code></p>
+              </div>
+              <span class="platform-entry">右下角「获取图片」</span>
+            </li>
+            <li class="platform-row reveal">
+              <div class="platform-name">
+                <span class="monogram">拼</span>
+                <strong>拼多多商家版</strong>
+              </div>
+              <div class="platform-desc">
+                <p>仅商家后台 <code>mms.pinduoduo.com</code> 的商品相关页面：地址含 <code>goods</code>，且为详情、编辑、预览页，或带有 <code>goods_id</code>。</p>
+                <p>不包含拼多多买家版商品页。</p>
+              </div>
+              <span class="platform-entry">右下角「获取图片」</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="platform-notes reveal">
+          <p>其他页面不会出现按钮；在单页应用内跳转后，扩展会重新判断当前地址，离开详情页时按钮自动消失。</p>
+          <p>提取结果只包含当前详情页公开的图片地址。具体能取到哪些图，取决于页面结构与图床是否允许请求。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-label"><span>05</span> 常见问题</p>
+          <div>
+            <h2 id="faq-title">安装前后，可能会问的几件事。</h2>
+          </div>
+        </div>
+
+        <div class="faq">
+          <details class="reveal">
+            <summary>需要登录淘宝、京东或拼多多账号吗？</summary>
+            <div class="faq-answer"><p>不需要。扩展不读取账号、Cookie 或订单，只读取当前详情页中公开显示的商品图地址。拼多多商家版本身需要你已登录后台才能打开商品页，但扩展不会接触登录信息。</p></div>
+          </details>
+          <details class="reveal">
+            <summary>下载的图片保存在哪里？</summary>
+            <div class="faq-answer"><p>浏览器默认下载目录下的 <code>ecom-images</code> 文件夹，文件名形如 <code>product-01.png</code>，按编号递增。每批下载前，扩展会检查本地已有的编号，从数字最小的空号开始命名，遇到已占用编号就跳过；例如已有 01、02、04，本批会使用 03、05、06，不会覆盖已有文件。本地删除图片后，对应编号会重新可用；若刚删除就立刻开始下一批，Chrome 需要几秒刷新文件状态，该编号可能暂时仍被跳过，稍后再下载即可。如果 Chrome 设置为每次询问保存位置，会先弹出保存对话框。</p></div>
+          </details>
+          <details class="reveal">
+            <summary>为什么详情页右下角没有按钮？</summary>
+            <div class="faq-answer"><p>先确认当前是受支持的商品详情页，而不是首页、搜索列表或店铺页。刚安装或更新扩展后，请刷新页面。仍然不出现时，在 <code>chrome://extensions</code> 确认扩展已启用，且没有报错。</p></div>
+          </details>
+          <details class="reveal">
+            <summary>图片会上传到服务器吗？</summary>
+            <div class="faq-answer"><p>不会。扩展读取图片地址，在浏览器内用 Canvas 转换为 PNG，再交给 Chrome 的下载管理器。图片不经过第三方服务器，也不保存在扩展自己的空间里。</p></div>
+          </details>
+          <details class="reveal">
+            <summary>支持拼多多买家版吗？</summary>
+            <div class="faq-answer"><p>暂不支持。当前只覆盖拼多多商家后台 <code>mms.pinduoduo.com</code> 的商品相关页面，买家版商品详情页不会出现入口。</p></div>
+          </details>
+          <details class="reveal">
+            <summary>下载时提示部分图片失败怎么办？</summary>
+            <div class="faq-answer"><p>部分图床会拒绝扩展发起的图片请求。下载页会显示成功与失败数量，已经保存的图片不受影响。可以重试，或减少一次勾选的数量再试。</p></div>
+          </details>
+          <details class="reveal">
+            <summary>平台页面改版后取不到图？</summary>
+            <div class="faq-answer"><p>商品页结构经常调整。如果主图既不在页面图片里，也不在页面脚本或描述页中，本次提取可能为空。可以刷新后重试；持续取不到时，需要等待扩展适配新的页面结构。</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing" aria-labelledby="closing-title">
+      <div class="container closing__inner">
+        <div>
+          <p class="closing__label">Chrome · Manifest V3</p>
+          <h2 id="closing-title">下一次上新，直接从详情页取图。</h2>
+          <p>安装后无需登录，也不会上传图片。打开商品详情页，右下角就是入口。</p>
+        </div>
+        <a class="btn btn--light" href="#install">
+          回到安装步骤
+          <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M3 9h11m0 0-4-4m4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="brand brand--footer" href="#top">
+            <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
+              <path d="M9 13V9h4M19 9h4v4M23 19v4h-4M13 23H9v-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/>
+              <path d="M16 11v10m0 0 3.2-3.2M16 21l-3.2-3.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/>
+            </svg>
+            <span class="brand__name">电商图片提取</span>
+          </a>
+          <p>把商品详情页里的图片集中起来，勾选后下载为 PNG。一个只做取图的 Chrome 扩展。</p>
+        </div>
+
+        <nav class="footer-col" aria-label="站内导航">
+          <h2>站内</h2>
+          <a href="#about">产品介绍</a>
+          <a href="#features">核心功能</a>
+          <a href="#install">安装步骤</a>
+        </nav>
+
+        <nav class="footer-col" aria-label="使用帮助">
+          <h2>使用</h2>
+          <a href="#platforms">支持平台</a>
+          <a href="#faq">常见问题</a>
+          <a href="#install">加载扩展</a>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 电商图片提取 · 静态介绍页，不收集任何信息。</p>
+        <p>Chrome 是 Google LLC 的商标；本页面与 Google 无隶属关系。</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
